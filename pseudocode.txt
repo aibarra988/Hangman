@@ -1,0 +1,17 @@
+Hangman
+
+// Output game screen with: 
+    - Greeting (press any key when ready)
+    - A magic word ready to be guessed on (show word as underscores)
+
+// When a user presses a key:
+    // if the user has available guesses remaining and the magic word has not been revealed
+        
+        // Check the user's guess against the word
+
+        // if the user's guess matches a letter in the magic word  
+            // Uncover the instances of the that letter in the magic word
+        // Else, add that guess to display user's attempts
+                 and decrease the number of guesses remaining
+    
+    // Else, Display Game Over Screen and Reset Button
