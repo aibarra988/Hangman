@@ -10,7 +10,6 @@ var game = {
     wordList: ["Playstation", "Windows 95", "Solo Cups"],
     magicWord: "",
     setNewMagicWord: function() {
-        this.resetAttempts();
         this.magicWord = this.wordList[Math.floor(Math.random() * Math.floor(this.wordList.length))];
     },
     progress: [],
@@ -21,7 +20,7 @@ var game = {
         var lcGuess = guess.toLowerCase();
         var lcMagicWord = this.magicWord.toLowerCase().split("");
         var match = false;
-
+        
         for (var i = 0; i < lcMagicWord.length; i++) {
             // if we get a match, uncover the instances of 
             // the that letter in the magic word
@@ -41,11 +40,12 @@ var game = {
         });
     },
     resetGame: function() {
-            this.guessCounter = 5;
-            this.progress = [];
-            this.magicWord = "";
-            this.setNewMagicWord();
-            this.setProgress();
+        this.guessCounter = 5;
+        this.progress = [];
+        this.magicWord = "";
+        this.resetAttempts();
+        this.setNewMagicWord();
+        this.setProgress();
     },
     setProgress: function() {
         for (var i = 0; i < this.magicWord.length; i++) {
