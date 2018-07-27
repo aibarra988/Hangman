@@ -1,6 +1,3 @@
-// fixme: progress won't clear after winning the game
-
-
 var stageEl = document.getElementById("stage");
 var winsEl = document.getElementById("wins");
 var guessCounterEl = document.getElementById("guess-counter");
@@ -11,12 +8,12 @@ var game = {
     wordList: ["Playstation", "Windows 95", "Solo Cups"],
     magicWord: "",
     setNewMagicWord: function() {
+        this.resetAttempts();
         this.magicWord = this.wordList[Math.floor(Math.random() * Math.floor(this.wordList.length))];
     },
     progress: [],
     wins: 0,
     guessCounter: 5,
-    gameOver: false,
     evaluateGuess: function(guess) {
         // Check the user's guess against the word
         var lcGuess = guess.toLowerCase();
@@ -35,7 +32,13 @@ var game = {
         if (!match) this.attempts.push(guess);
         return match;
     },
-    setProgress: function(letter) {
+    resetAttempts: function() {
+        var self = this;
+        this.attempts.forEach(function(letter, index) {
+            delete self.attempts[index];
+        });
+    },
+    setProgress: function() {
         for (var i = 0; i < this.magicWord.length; i++) {
             this.progress.push("-");
         }
@@ -60,6 +63,7 @@ document.onkeyup = function(event) {
     
     // If our progress matches up to our magic word, we have a winner!
     var winner = progress.replace("-", userGuess) === game.magicWord;
+    var gameOver = false;
 
     // Validate user input
     var validInput = /^[a-zA-Z_0-9\s-]$/.test(userGuess);
@@ -72,7 +76,9 @@ document.onkeyup = function(event) {
             game.wins++;
             game.guessCounter = 5;
             game.progress = [];
-        
+            game.magicWord = "";
+            game.setNewMagicWord();
+            game.setProgress();
         // check if the user has available guesses remaining 
         // and the magic word has not been revealed
         } else if (game.guessCounter > 1 && progress !== game.magicWord) {
@@ -86,7 +92,11 @@ document.onkeyup = function(event) {
             if (!match) {
                 // decrease the number of guesses remaining
                 game.guessCounter--;
-                game.gameOver = true;
+
+                // WHY DOES THIS WORK?!?!?!
+                if (game.guessCounter === 1) {
+                    game.gameOver = true;
+                }
             }
 
     
