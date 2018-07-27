@@ -1,3 +1,5 @@
+// Refactoring idea: use reduce to determine letter matches in the magic word
+
 var stageEl = document.getElementById("stage");
 var winsEl = document.getElementById("wins");
 var guessCounterEl = document.getElementById("guess-counter");
@@ -38,6 +40,13 @@ var game = {
             delete self.attempts[index];
         });
     },
+    resetGame: function() {
+            this.guessCounter = 5;
+            this.progress = [];
+            this.magicWord = "";
+            this.setNewMagicWord();
+            this.setProgress();
+    },
     setProgress: function() {
         for (var i = 0; i < this.magicWord.length; i++) {
             this.progress.push("-");
@@ -51,6 +60,7 @@ var game = {
     }
 };
 
+// Render a new game when page loads
 game.setNewMagicWord();
 game.setProgress();
 game.render();
@@ -74,11 +84,7 @@ document.onkeyup = function(event) {
             console.log("woohoo!");
             game.evaluateGuess(userGuess);
             game.wins++;
-            game.guessCounter = 5;
-            game.progress = [];
-            game.magicWord = "";
-            game.setNewMagicWord();
-            game.setProgress();
+            game.resetGame();
         // check if the user has available guesses remaining 
         // and the magic word has not been revealed
         } else if (game.guessCounter > 1 && progress !== game.magicWord) {
@@ -106,6 +112,7 @@ document.onkeyup = function(event) {
         }
     }
 
+    // Refresh the game screen after every user input
     game.render();
 };
 
