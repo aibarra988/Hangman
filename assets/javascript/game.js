@@ -30,7 +30,10 @@ var game = {
             }
         }
         
-        if (!match) this.attempts.push(guess);
+        if (!match && !(this.attempts.includes(lcGuess))) {
+            this.attempts.push(guess);
+        } 
+
         return match;
     },
     resetAttempts: function() {
@@ -100,7 +103,7 @@ document.onkeyup = function(event) {
     
 
             // if the user didn't get a match
-            if (!match) {
+            if (!match && !(game.attempts.includes(userGuess))) {
                 // decrease the number of guesses remaining
                 game.guessCounter--;
 
