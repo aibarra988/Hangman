@@ -40,12 +40,12 @@ var game = {
         });
     },
     resetGame: function() {
-        this.guessCounter = 5;
-        this.progress = [];
         this.magicWord = "";
-        this.resetAttempts();
         this.setNewMagicWord();
+        this.progress = [];
         this.setProgress();
+        this.resetAttempts();
+        this.guessCounter = 5;
     },
     setProgress: function() {
         for (var i = 0; i < this.magicWord.length; i++) {
@@ -59,6 +59,11 @@ var game = {
         attemptsEl.textContent = this.attempts.join(" ");
     }
 };
+
+function resetGame() {
+    game.resetGame();
+    game.render();
+}
 
 // Render a new game when page loads
 game.setNewMagicWord();
