@@ -15,7 +15,7 @@ var game = {
     progress: [],
     wins: 0,
     guessCounter: 5,
-    evaluateGuess: function(guess) {
+    findMatch: function(guess) {
         // Check the user's guess against the word
         var lcGuess = guess.toLowerCase();
         var lcMagicWord = this.magicWord.toLowerCase().split("");
@@ -30,6 +30,9 @@ var game = {
             }
         }
         
+
+        // If the failed guess isn't already in our attempts list,
+        // add guess to attempts and decrease number of guesses remaining
         if (!match && !(this.attempts.includes(lcGuess))) {
             this.attempts.push(guess);
         } 
@@ -90,7 +93,7 @@ document.onkeyup = function(event) {
         
         if (winner) {
             console.log("woohoo!");
-            game.evaluateGuess(userGuess);
+            game.findMatch(userGuess);
             game.wins++;
             game.resetGame();
         // check if the user has available guesses remaining 
@@ -99,7 +102,7 @@ document.onkeyup = function(event) {
             
             // Check the user's guess against the magic word to
             // see if they got a match
-            var match = game.evaluateGuess(userGuess);
+            var match = game.findMatch(userGuess);
     
 
             // if the user didn't get a match
