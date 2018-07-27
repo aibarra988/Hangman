@@ -57,24 +57,24 @@ game.render();
 document.onkeyup = function(event) {
     var userGuess = event.key;
     var progress = game.progress.join("");
+    
+    // If our progress matches up to our magic word, we have a winner!
     var winner = progress.replace("-", userGuess) === game.magicWord;
 
     // Validate user input
     var validInput = /^[a-zA-Z_0-9\s-]$/.test(userGuess);
 
     if (validInput) {
-        // check if the user has available guesses remaining 
-        // and the magic word has not been revealed
         
-        // If our progress matches up to our magic word,
-        // we have a winner!
-
         if (winner) {
             console.log("woohoo!");
             game.evaluateGuess(userGuess);
             game.wins++;
             game.guessCounter = 5;
             game.progress = [];
+        
+        // check if the user has available guesses remaining 
+        // and the magic word has not been revealed
         } else if (game.guessCounter > 1 && progress !== game.magicWord) {
             
             // Check the user's guess against the magic word to
@@ -86,6 +86,7 @@ document.onkeyup = function(event) {
             if (!match) {
                 // decrease the number of guesses remaining
                 game.guessCounter--;
+                game.gameOver = true;
             }
 
     
