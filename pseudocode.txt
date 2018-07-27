@@ -15,3 +15,5 @@ Hangman
                  and decrease the number of guesses remaining
     
     // Else, Display Game Over Screen and Reset Button
+
+    // render game to screen

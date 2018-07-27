@@ -1,0 +1,22 @@
+Guess what letter im thinking
+
+// Display the game greeting, instructions, and stats
+    - Tell the user to type in a letter to start the game
+
+// When a user inputs a Guess
+    // If user has guesses remaining AND the magic letter has NOT been revealed
+        // check if the guess is equal to the magic-letter
+
+        // if the guess is RIGHT
+            // Display a congrats screen and a reset button to the user
+            // Increment the wins counter by 1
+        
+        // Else, if the guess is wrong
+            // Add the attempt to the list of guesses so far
+            // Decrease the number of available guesses by one
+
+    // Show a game over screen and reset button
+
+    // render the game
+
+
