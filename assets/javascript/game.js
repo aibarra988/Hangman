@@ -84,7 +84,11 @@ var game = {
     },
     setProgress: function() {
         for (var i = 0; i < this.magicWord.length; i++) {
-            this.progress.push("-");
+            if (this.magicWord[i] === " ") {
+                this.progress.push(" ");
+            } else {
+                this.progress.push("-");
+            }
         }
     },
     render: function() {
