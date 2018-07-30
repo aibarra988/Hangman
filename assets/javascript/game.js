@@ -34,14 +34,25 @@ var game = {
         hint: "Iconic clear soda of the 1990s"
     }],
     magicWord: "",
+
+    // Set a random magic word and its hint
     setNewMagicWord: function() {
         var randomPick = Math.floor(Math.random() * Math.floor(this.wordList.length));
         this.magicWord = this.wordList[randomPick].word;
         this.hint = this.wordList[randomPick].hint;
     },
+    // keeps track of the progress of revealing the word
     progress: [],
     wins: 0,
     guessCounter: 5,
+    /*
+    *   Determines the outcome of the game and returns
+    *   true or false respectively. If guess is incorrect,
+    *   adds guess to attempts list.
+    * 
+    *   @param {string} guess
+    *   @returns {boolean} outcome
+    */ 
     findMatch: function(guess) {
         // Check the user's guess against the word
         var lcGuess = guess.toLowerCase();
@@ -67,12 +78,14 @@ var game = {
         return match;
     },
     gameOver: false,
+    // Clears the attempts list
     resetAttempts: function() {
         var self = this;
         this.attempts.forEach(function(letter, index) {
             delete self.attempts[index];
         });
     },
+    // Resets the state of the game
     resetGame: function() {
         this.magicWord = "";
         this.setNewMagicWord();
@@ -82,6 +95,8 @@ var game = {
         this.guessCounter = 5;
         loseMessageEl.classList.remove("unhide");
     },
+    // Initializes the progress array with dashes 
+    // for every character except spaces
     setProgress: function() {
         for (var i = 0; i < this.magicWord.length; i++) {
             if (this.magicWord[i] === " ") {
@@ -91,6 +106,7 @@ var game = {
             }
         }
     },
+    // Updates the HTML with the state of the game
     render: function() {
         hintEl.textContent = this.hint;
         stageEl.textContent = this.progress.join("");
@@ -153,7 +169,7 @@ document.onkeyup = function(event) {
                 }
             }
 
-    
+        // If it's game over, play sound and unhide reset button
         } else if (game.gameOver) {
             loseSound.play();
             //then unhide reset button
